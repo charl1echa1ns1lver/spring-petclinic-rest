@@ -26,3 +26,15 @@ jobs:
           cache: maven
       - name: Build & publish the project
         run: mvn compile jib:build -X -DjibSerialize=true
+  bruno-tests:
+    name: Bruno test collection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bruno CLI runner
+        id: bru-cli
+        uses: krummbar/bruno-run-action@main # (1)
+        with:
+          path: /pet-clinic-tests
+          # env: integration
+          output: output.json
+          output-format: json
