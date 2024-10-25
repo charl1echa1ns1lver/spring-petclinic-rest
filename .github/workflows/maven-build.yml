@@ -22,14 +22,6 @@ jobs:
         run: mvn -B install --file pom.xml -Djacoco.skip=true -DdisableXmlReport=true
       - name: Run app
         run: ./mvnw spring-boot:run
-      - name: Bruno API Tests
-        id: bru-cli
-        uses: krummbar/bruno-run-action@main
-        with:
-          path: pet-clinic-tests
-          # env: integration
-          output: output.json
-          output-format: json
   API:
     needs: deploy_app
     runs-on: ubuntu-latest
