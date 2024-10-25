@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
@@ -31,3 +29,33 @@ jobs:
           # env: integration
           output: output.json
           output-format: json
+  API:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Load & cache dependencies
+        id: cache-deps
+        uses: ./.github/actions/cached-deps
+        with:
+          caching: 'true'
+      - name: Output cache usage
+        run: echo "Cache used? ${{ steps.cache-deps.outputs.used-cache }}"
+      - name: Run app
+        run: ./mvnw spring-boot:run
+      - name: Bruno API Tests
+        id: bru-cli
+        uses: krummbar/bruno-run-action@main
+        with:
+          path: pet-clinic-tests
+          # env: integration
+          output: output.json
+          output-format: json
+
+
+

@@ -1,0 +1,36 @@
+meta {
+  name: List Pet Types
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:9966/petclinic/api/pettypes
+  body: none
+  auth: none
+}
+
+assert {
+  res("..name"): contains cat
+}
+
+tests {
+  let expectedPetTypes = ["cat", "dog", "lizard", "snake" , "bird", "hamster"]
+  
+  
+  test("All pets expected are included in the response", function() {
+  let actualPetTypes = res.body.map(pet => pet.name);
+  
+    // Validate that all expected pet types are present in the actual pet types
+  expectedPetTypes.forEach(expectedType => {
+      expect(actualPetTypes.includes(expectedType)).to.equal(true);
+  });
+  });
+  
+  test("should be 200 OK", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  
+  
+}

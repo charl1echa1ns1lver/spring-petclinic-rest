@@ -1,0 +1,19 @@
+meta {
+  name: Health
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:9966/petclinic/actuator/health
+  body: none
+  auth: none
+}
+
+tests {
+  test("should be up and running", function() {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().status).to.equal('UP');
+  });
+  
+}
