@@ -33,7 +33,7 @@ jobs:
                
                while true; do
                echo "Checking if the app is up..."
-               if curl -s --head --request GET http://localhost:9966/petclinic/actuator/health | grep "200 OK" > /dev/null; then
+               if curl -s --head --request GET http://localhost:9966/petclinic/actuator/health | grep "200" > /dev/null; then
                echo "Application is up!"
                break
                fi
