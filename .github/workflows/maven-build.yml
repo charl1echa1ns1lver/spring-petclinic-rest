@@ -27,6 +27,7 @@ jobs:
         run: nohup ./mvnw spring-boot:run &
       - name: Wait for the app to start
         run: |
+          # Loop till application starts         
               start_time=$(date +%s) # Record start time
               timeout=300 # Timeout duration in seconds
                
