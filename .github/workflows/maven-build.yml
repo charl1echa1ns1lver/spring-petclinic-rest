@@ -27,7 +27,6 @@ jobs:
         run: nohup ./mvnw spring-boot:run &
       - name: Wait for the app to start
         run: |
-          # Replace with your actual health endpoint
                start_time=$(date +%s) # Record start time
                timeout=300 # Timeout duration in seconds
                
@@ -65,7 +64,13 @@ jobs:
           output: output.json
           output-format: json
       - name: Clean up
-        run: kill $(jobs -p) # Stop the background process
+        run: |
+             pids=$(jobs -p)
+             if [ -n "$pids" ]; then
+             kill $pids
+             else
+             echo "No background jobs to kill."
+             fi
 
 
 
