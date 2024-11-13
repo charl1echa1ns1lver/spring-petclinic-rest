@@ -74,6 +74,7 @@ public class OwnerRestController implements OwnersApi {
             owners = this.clinicService.findOwnerByLastName(lastName);
         } else {
             owners = this.clinicService.findAllOwners();
+            System.out.println("im playing with you");
         }
         if (owners.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

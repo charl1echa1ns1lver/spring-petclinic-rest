@@ -196,6 +196,16 @@ class OwnerRestControllerTests {
 
     @Test
     @WithMockUser(roles = "OWNER_ADMIN")
+    void testGetOwnersReturnAllIfLastNameIsNull() throws Exception {
+        given(this.clinicService.findOwnerByLastName("")).willReturn(ownerMapper.toOwners(owners));
+        this.mockMvc.perform(get("/api/owners/?lastName=")
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+    }
+
+
+    @Test
+    @WithMockUser(roles = "OWNER_ADMIN")
     void testGetAllOwnersSuccess() throws Exception {
         owners.remove(0);
         owners.remove(1);
