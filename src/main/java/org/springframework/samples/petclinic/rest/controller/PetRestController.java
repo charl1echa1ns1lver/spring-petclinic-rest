@@ -91,6 +91,7 @@ public class PetRestController implements PetsApi {
         if (pet == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        System.out.println("xxxx");
         this.clinicService.deletePet(pet);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
